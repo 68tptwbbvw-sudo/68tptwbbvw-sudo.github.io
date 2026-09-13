@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quinten von Berg — Portfolio</title>
+<meta name="description" content="Portfolio für Medieninformatik, 3D-Animation und Gestaltung. Bald hier.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#171512;
+    --text:#EDE9E3;
+    --text-dim:#A39E93;
+    --accent:#6C5CE7;
+    --accent-2:#C4F135;
+    --line:#33302A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:'Inter',sans-serif;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:48px 32px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;width:100%;}
+  .top,.mid,.bot{width:100%;}
+  .mid{margin:auto 0;}
+
+  .mono{
+    font-family:'IBM Plex Mono',monospace;
+    font-size:0.8rem;
+    color:var(--text-dim);
+    letter-spacing:0.02em;
+  }
+
+  h1{
+    font-family:'Space Grotesk',sans-serif;
+    font-weight:700;
+    font-size:clamp(2.4rem,7vw,4.5rem);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    margin:20px 0 24px;
+    max-width:14ch;
+  }
+  .lead{
+    color:var(--text-dim);
+    max-width:44ch;
+    font-size:1.05rem;
+    line-height:1.6;
+  }
+
+  /* Ladebalken als Fortschrittsmetapher */
+  .bar{
+    margin-top:44px;
+    height:3px;
+    width:100%;
+    max-width:340px;
+    background:var(--line);
+    overflow:hidden;
+  }
+  .bar span{
+    display:block;
+    height:100%;
+    width:40%;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    animation:slide 2.8s ease-in-out infinite;
+  }
+  @keyframes slide{
+    0%{transform:translateX(-100%);}
+    100%{transform:translateX(250%);}
+  }
+
+  .bot{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+    border-top:1px solid var(--line);
+    padding-top:24px;
+  }
+  a{
+    color:var(--text);
+    text-decoration:none;
+    border-bottom:1px solid var(--accent);
+    padding-bottom:3px;
+    transition:color .2s,border-color .2s;
+  }
+  a:hover{color:var(--accent-2);border-color:var(--accent-2);}
+  :focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;}
+
+  @media (prefers-reduced-motion:reduce){
+    .bar span{animation:none;width:45%;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap top">
+    <span class="mono">Medieninformatik · Portfolio</span>
+  </div>
+
+  <div class="wrap mid">
+    <h1>Hier entsteht gerade etwas.</h1>
+    <p class="lead">Portfolio für 3D-Animation, App-Entwicklung und Gestaltung. Die Projekte sind in Arbeit — schau bald wieder vorbei.</p>
+    <div class="bar" role="presentation"><span></span></div>
+  </div>
+
+  <div class="wrap bot">
+    <span class="mono">Quinten von Berg</span>
+    <a class="mono" href="mailto:deine@email.de">deine@email.de</a>
+  </div>
+
+</body>
+</html>
