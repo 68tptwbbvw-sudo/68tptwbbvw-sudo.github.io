@@ -11,11 +11,55 @@
 <link rel="icon" href="/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;700&family=Inter:wght@400&family=IBM+Plex+Mono:wght@400&display=swap" rel="stylesheet">
+<!--
+  Archivo kommt von der eigenen Domain, nicht von Google. Vorher standen hier
+  drei Verweise auf fonts.googleapis.com/fonts.gstatic.com — damit ging die
+  IP-Adresse jedes Besuchers an Google, bevor er irgendetwas anklicken konnte,
+  und das auf einer Seite ohne Impressum und ohne Datenschutzerklärung.
+
+  Die beiden Schriftdateien liegen in site/public/fonts/ und sind dieselben,
+  die die fertige Website benutzt. live.sh führt sie in PFLICHT und legt sie
+  deshalb auch beim Platzhalter mit aus — der wird ja nicht gebaut.
+
+  Der Vorlader holt den Schnitt parallel zum Rest statt erst danach.
+  `crossorigin` ist auch bei eigener Domain nötig: Schriften werden im
+  anonymen CORS-Modus geholt, sonst lädt der Browser die Datei zweimal.
+-->
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin.woff2" crossorigin>
 <style>
+  /* Eine Variable-Font-Datei je Subset deckt 300–800 ab. `latin` trägt alles,
+     was hier vorkommt; `latin-ext` holt der Browser nur bei Bedarf.
+     Lizenz: SIL OFL 1.1, Text in site/public/fonts/OFL.txt — beim Austausch
+     der Dateien muss er mitwandern. */
+  @font-face{
+    font-family:'Archivo';
+    font-style:normal;
+    font-weight:300 800;
+    font-stretch:100%;
+    font-display:swap;
+    src:url('/fonts/archivo-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+      U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
+      U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  @font-face{
+    font-family:'Archivo';
+    font-style:normal;
+    font-weight:300 800;
+    font-stretch:100%;
+    font-display:swap;
+    src:url('/fonts/archivo-latin-ext.woff2') format('woff2');
+    unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,
+      U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,
+      U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
+
   :root{
+    --schrift:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    /* Für die beiden kleinen Zeilen oben und unten. Archivo hat keinen
+       dicktengleichen Schnitt; diese Stapel kommen ohne jede Datei aus. */
+    --schrift-mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,
+      'Liberation Mono',monospace;
     --bg:#171512;
     --text:#EDE9E3;
     --text-dim:#A39E93;
@@ -27,7 +71,7 @@
   body{
     background:var(--bg);
     color:var(--text);
-    font-family:'Inter',sans-serif;
+    font-family:var(--schrift);
     min-height:100vh;
     display:flex;
     flex-direction:column;
@@ -40,14 +84,14 @@
   .mid{margin:auto 0;}
 
   .mono{
-    font-family:'IBM Plex Mono',monospace;
+    font-family:var(--schrift-mono);
     font-size:0.8rem;
     color:var(--text-dim);
     letter-spacing:0.02em;
   }
 
   h1{
-    font-family:'Space Grotesk',sans-serif;
+    font-family:var(--schrift);
     font-weight:700;
     font-size:clamp(2.4rem,7vw,4.5rem);
     line-height:1.1;
@@ -121,7 +165,7 @@
 
   <div class="wrap bot">
     <span class="mono">Quinten von Berg</span>
-    <a class="mono" href="mailto:deine@email.de">info@quintenvonberg.com</a>
+    <a class="mono" href="mailto:info@quintenvonberg.com">info@quintenvonberg.com</a>
   </div>
 
 </body>
