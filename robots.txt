@@ -1,0 +1,29 @@
+# ⚠️  NUR FÜR DEN TEST-LIVEGANG — VOR DEM ECHTEN START LÖSCHEN.
+#
+# Diese Datei sperrt die GANZE Seite für Suchmaschinen aus. Sie ist am
+# 15.09.2026 angelegt worden, damit die Seite kurz unter der echten Domain
+# geprüft werden kann, ohne dass Google den unfertigen Stand indexiert —
+# es fehlen noch die blurb-Zeilen unter den Titeln.
+#
+# Solange sie hier liegt, wird die Seite NICHT gefunden. Wer sie vergisst,
+# hat eine Bewerbungsseite, die bei Google nicht auftaucht.
+#
+# So wird sie wieder los:
+#
+#     rm site/public/robots.txt
+#     cd site && npm run build
+#     ./live.sh website          (im Hauptordner)
+#
+# Sie liegt in site/public/ und kommt damit aus dem Bau. Beim Rückschalten
+# auf den Platzhalter verschwindet sie von allein — sie steht bewusst NICHT
+# in PFLICHT oben in live.sh, denn der Platzhalter soll sie nicht tragen.
+#
+# Zwei Grenzen, damit niemand mehr erwartet, als sie leistet:
+#   · robots.txt ist eine Bitte, keine Sperre. Die großen Suchmaschinen
+#     halten sich daran, ein Scraper muss es nicht.
+#   · Sie verhindert das CRAWLEN, nicht zwingend das Auftauchen: eine
+#     Adresse, auf die von außen verlinkt wird, kann ohne Inhalt trotzdem
+#     in den Ergebnissen stehen. Hierher verlinkt bisher nichts.
+
+User-agent: *
+Disallow: /
