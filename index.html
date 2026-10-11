@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Quinten von Berg — Portfolio</title>
+<meta name="description" content="Portfolio für Medieninformatik, 3D-Animation und Gestaltung. Bald hier.">
+<!-- Symbol im Browser-Tab. Dieselben drei Dateien wie bei der fertigen
+     Seite; sie liegen in site/public/ und werden von live.sh nachgelegt,
+     weil der Platzhalter nicht gebaut wird (PFLICHT-Liste in live.sh). -->
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/favicon.ico" sizes="16x16 32x32 48x48">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<!--
+  Archivo kommt von der eigenen Domain, nicht von Google. Vorher standen hier
+  drei Verweise auf fonts.googleapis.com/fonts.gstatic.com — damit ging die
+  IP-Adresse jedes Besuchers an Google, bevor er irgendetwas anklicken konnte,
+  und das auf einer Seite ohne Impressum und ohne Datenschutzerklärung.
+
+  Die beiden Schriftdateien liegen in site/public/fonts/ und sind dieselben,
+  die die fertige Website benutzt. live.sh führt sie in PFLICHT und legt sie
+  deshalb auch beim Platzhalter mit aus — der wird ja nicht gebaut.
+
+  Der Vorlader holt den Schnitt parallel zum Rest statt erst danach.
+  `crossorigin` ist auch bei eigener Domain nötig: Schriften werden im
+  anonymen CORS-Modus geholt, sonst lädt der Browser die Datei zweimal.
+-->
+<link rel="preload" as="font" type="font/woff2" href="/fonts/archivo-latin.woff2" crossorigin>
+<style>
+  /* Eine Variable-Font-Datei je Subset deckt 300–800 ab. `latin` trägt alles,
+     was hier vorkommt; `latin-ext` holt der Browser nur bei Bedarf.
+     Lizenz: SIL OFL 1.1, Text in site/public/fonts/OFL.txt — beim Austausch
+     der Dateien muss er mitwandern. */
+  @font-face{
+    font-family:'Archivo';
+    font-style:normal;
+    font-weight:300 800;
+    font-stretch:100%;
+    font-display:swap;
+    src:url('/fonts/archivo-latin.woff2') format('woff2');
+    unicode-range:U+0000-00FF,U+0131,U+0152-0153,U+02BB-02BC,U+02C6,U+02DA,
+      U+02DC,U+0304,U+0308,U+0329,U+2000-206F,U+20AC,U+2122,U+2191,U+2193,
+      U+2212,U+2215,U+FEFF,U+FFFD;
+  }
+  @font-face{
+    font-family:'Archivo';
+    font-style:normal;
+    font-weight:300 800;
+    font-stretch:100%;
+    font-display:swap;
+    src:url('/fonts/archivo-latin-ext.woff2') format('woff2');
+    unicode-range:U+0100-02BA,U+02BD-02C5,U+02C7-02CC,U+02CE-02D7,U+02DD-02FF,
+      U+0304,U+0308,U+0329,U+1D00-1DBF,U+1E00-1E9F,U+1EF2-1EFF,U+2020,
+      U+20A0-20AB,U+20AD-20C0,U+2113,U+2C60-2C7F,U+A720-A7FF;
+  }
+
+  :root{
+    --schrift:'Archivo',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;
+    /* Für die beiden kleinen Zeilen oben und unten. Archivo hat keinen
+       dicktengleichen Schnitt; diese Stapel kommen ohne jede Datei aus. */
+    --schrift-mono:ui-monospace,SFMono-Regular,'SF Mono',Menlo,Consolas,
+      'Liberation Mono',monospace;
+    --bg:#171512;
+    --text:#EDE9E3;
+    --text-dim:#A39E93;
+    --accent:#6C5CE7;
+    --accent-2:#C4F135;
+    --line:#33302A;
+  }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{
+    background:var(--bg);
+    color:var(--text);
+    font-family:var(--schrift);
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:48px 32px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1100px;margin:0 auto;width:100%;}
+  .top,.mid,.bot{width:100%;}
+  .mid{margin:auto 0;}
+
+  .mono{
+    font-family:var(--schrift-mono);
+    font-size:0.8rem;
+    color:var(--text-dim);
+    letter-spacing:0.02em;
+  }
+
+  h1{
+    font-family:var(--schrift);
+    font-weight:700;
+    font-size:clamp(2.4rem,7vw,4.5rem);
+    line-height:1.1;
+    letter-spacing:-0.01em;
+    margin:20px 0 24px;
+    max-width:14ch;
+  }
+  .lead{
+    color:var(--text-dim);
+    max-width:44ch;
+    font-size:1.05rem;
+    line-height:1.6;
+  }
+
+  /* Ladebalken als Fortschrittsmetapher */
+  .bar{
+    margin-top:44px;
+    height:3px;
+    width:100%;
+    max-width:340px;
+    background:var(--line);
+    overflow:hidden;
+  }
+  .bar span{
+    display:block;
+    height:100%;
+    width:40%;
+    background:linear-gradient(90deg,var(--accent),var(--accent-2));
+    animation:slide 2.8s ease-in-out infinite;
+  }
+  @keyframes slide{
+    0%{transform:translateX(-100%);}
+    100%{transform:translateX(250%);}
+  }
+
+  .bot{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    flex-wrap:wrap;
+    border-top:1px solid var(--line);
+    padding-top:24px;
+  }
+  a{
+    color:var(--text);
+    text-decoration:none;
+    border-bottom:1px solid var(--accent);
+    padding-bottom:3px;
+    transition:color .2s,border-color .2s;
+  }
+  a:hover{color:var(--accent-2);border-color:var(--accent-2);}
+  :focus-visible{outline:2px solid var(--accent-2);outline-offset:3px;}
+
+  @media (prefers-reduced-motion:reduce){
+    .bar span{animation:none;width:45%;}
+  }
+</style>
+</head>
+<body>
+
+  <div class="wrap top">
+    <span class="mono">Medieninformatik · Portfolio</span>
+  </div>
+
+  <div class="wrap mid">
+    <h1>Hier entsteht gerade etwas.</h1>
+    <p class="lead">Portfolio für 3D-Animation, App-Entwicklung und Gestaltung. Die Projekte sind in Arbeit — schau bald wieder vorbei.</p>
+    <div class="bar" role="presentation"><span></span></div>
+  </div>
+
+  <div class="wrap bot">
+    <span class="mono">Quinten von Berg</span>
+    <a class="mono" href="mailto:info@quintenvonberg.com">info@quintenvonberg.com</a>
+  </div>
+
+</body>
+</html>
